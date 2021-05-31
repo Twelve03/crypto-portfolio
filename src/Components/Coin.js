@@ -1,11 +1,9 @@
-import React from "react";
-
-const Coin = () => {
+const Coin = ({ coin }) => {
   return (
-    <div>
-      <h1>Coin name here</h1>
-      <p>Coin price here</p>
-      <p>Amount bought here</p>
+    <div className="coin">
+      <p>{coin.name}</p>
+      <p>{coin.price}</p>
+      <p>{coin.amount}</p>
     </div>
   );
 };

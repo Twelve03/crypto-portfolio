@@ -1,9 +1,11 @@
 import Coin from "./Coin";
 
-const CoinList = () => {
+const CoinList = ({ coins }) => {
   return (
-    <div>
-
+    <div className="coin-list">
+      {coins.map((coin) => {
+        return <Coin coin={coin} key={coin.id} />;
+      })}
     </div>
   );
 };
