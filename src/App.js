@@ -4,26 +4,9 @@ import AddForm from "./Components/AddForm";
 import CoinList from "./Components/CoinList";
 
 function App() {
-  const [coins, setCoins] = useState([
-    {
-      id: 1,
-      name: "Bitcoin",
-      price: "$36,000",
-      amount: 1,
-    },
-    {
-      id: 2,
-      name: "Ethereum Classic",
-      price: "$70",
-      amount: 1,
-    },
-    {
-      id: 3,
-      name: "BitcoinSV",
-      price: "$170",
-      amount: 1,
-    },
-  ]);
+  const [coins, setCoins] = useState([]);
+
+  const [total, setTotal] = useState(0);
 
   // Add coin
   const addCoin = (e) => {
@@ -32,11 +15,30 @@ function App() {
     setCoins([...coins, newCoin]);
   };
 
+  // Delete coin
+  const deleteCoin = (id) => {
+    setCoins(coins.filter((coin) => coin.id !== id));
+  };
+
+  // Increase value
+  const increaseTotal = (price, amount) => {
+    setTotal(total + (price * amount));
+  };
+
+  // Decrease value
+  const decreaseTotal = (price, amount) => {
+    setTotal(total - (price * amount));
+  };
+
   return (
     <div className="container">
-      <Header />
-      <AddForm onAdd={addCoin} />
-      <CoinList coins={coins} />
+      <Header total={total} />
+      <AddForm onAdd={addCoin} increaseTotal={increaseTotal} />
+      <CoinList
+        coins={coins}
+        onDelete={deleteCoin}
+        decreaseTotal={decreaseTotal}
+      />
     </div>
   );
 }

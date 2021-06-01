@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const AddForm = ({ onAdd }) => {
+const AddForm = ({ onAdd, increaseTotal }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [amount, setAmount] = useState("");
@@ -9,6 +9,8 @@ const AddForm = ({ onAdd }) => {
     e.preventDefault();
 
     onAdd({ name, price, amount });
+
+    increaseTotal(price, amount);
 
     setName("");
     setPrice("");
@@ -31,7 +33,7 @@ const AddForm = ({ onAdd }) => {
           type="number"
           value={price}
           onChange={(e) => {
-            setPrice(e.target.value);
+            setPrice(parseInt(e.target.value));
           }}
         />
         <label>Amount bought:</label>
@@ -39,7 +41,7 @@ const AddForm = ({ onAdd }) => {
           type="number"
           value={amount}
           onChange={(e) => {
-            setAmount(e.target.value);
+            setAmount(parseInt(e.target.value));
           }}
         />
         <button type="submit">Add Coin</button>
