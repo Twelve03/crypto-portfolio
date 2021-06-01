@@ -1,13 +1,47 @@
-const AddForm = () => {
+import { useState } from "react";
+
+const AddForm = ({ onAdd }) => {
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [amount, setAmount] = useState("");
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    onAdd({ name, price, amount });
+
+    setName("");
+    setPrice("");
+    setAmount("");
+  };
+
   return (
     <div className="container form-container">
-      <form className="form-style">
+      <form className="form-style" onSubmit={onSubmit}>
         <label>Coin Name:</label>
-        <input type="text" />
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+        />
         <label>Coin Price:</label>
-        <input type="number" />
+        <input
+          type="number"
+          value={price}
+          onChange={(e) => {
+            setPrice(e.target.value);
+          }}
+        />
         <label>Amount bought:</label>
-        <input type="number" />
+        <input
+          type="number"
+          value={amount}
+          onChange={(e) => {
+            setAmount(e.target.value);
+          }}
+        />
         <button type="submit">Add Coin</button>
       </form>
     </div>
