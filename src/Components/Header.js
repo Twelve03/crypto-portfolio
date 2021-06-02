@@ -1,8 +1,13 @@
-const Header = ({total}) => {
+const Header = ({ total }) => {
   return (
-    <div>
+    <div className="header">
       <p>My portfolio</p>
-      <h1>${total}</h1>
+      <h1 style={{ color: "#6eeb5e" }}>
+        {new Intl.NumberFormat("us-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(total)}
+      </h1>
     </div>
   );
 };
