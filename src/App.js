@@ -2,11 +2,12 @@ import { useState } from "react";
 import Header from "./Components/Header";
 import AddForm from "./Components/AddForm";
 import CoinList from "./Components/CoinList";
+import ToggleBtn from "./Components/ToggleBtn";
 
 function App() {
   const [coins, setCoins] = useState([]);
-
   const [total, setTotal] = useState(0);
+  const [showAddForm, setShowAddForm] = useState(false);
 
   // Add coin
   const addCoin = (e) => {
@@ -22,22 +23,28 @@ function App() {
 
   // Increase value
   const increaseTotal = (price, amount) => {
-    setTotal(total + (price * amount));
+    setTotal(total + price * amount);
   };
 
   // Decrease value
   const decreaseTotal = (price, amount) => {
-    setTotal(total - (price * amount));
+    setTotal(total - price * amount);
   };
 
   return (
     <div className="container">
       <Header total={total} />
-      <AddForm onAdd={addCoin} increaseTotal={increaseTotal} />
+      {showAddForm && <AddForm onAdd={addCoin} increaseTotal={increaseTotal} />}
       <CoinList
         coins={coins}
         onDelete={deleteCoin}
         decreaseTotal={decreaseTotal}
+      />
+      <ToggleBtn
+        showAddForm={showAddForm}
+        onToggle={() => {
+          setShowAddForm(!showAddForm);
+        }}
       />
     </div>
   );
