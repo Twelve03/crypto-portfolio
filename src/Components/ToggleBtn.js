@@ -1,9 +1,9 @@
 import { BsPlus, BsX } from "react-icons/bs";
 
-const ToggleBtn = ({ showAddForm, onToggle }) => {
+const ToggleBtn = ({ showSearchBar, onToggle }) => {
   return (
     <div className="toggle-btn" onClick={onToggle}>
-      {showAddForm ? (
+      {showSearchBar ? (
         <BsX className="btn-sign" />
       ) : (
         <BsPlus className="btn-sign" />
