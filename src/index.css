@@ -120,6 +120,11 @@ body {
   position: fixed;
 }
 
+.add-btn {
+  color: #3ee577;
+  cursor: pointer;
+}
+
 .trash-btn {
   color: #f84242;
   cursor: pointer;
