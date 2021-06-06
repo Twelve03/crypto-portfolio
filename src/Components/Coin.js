@@ -2,15 +2,21 @@ import { useState } from "react";
 import { BsFillTrashFill, BsFillPlusCircleFill } from "react-icons/bs";
 import AddForm from "./AddForm";
 
-const Coin = ({ coin, onDelete }) => {
+const Coin = ({ coin, onDelete, increaseTotal, decreaseTotal }) => {
   const [coinCost, setCoinCost] = useState("");
   const [amountBought, setAmountBought] = useState("");
   const [showForm, setShowForm] = useState(false);
+  // Shows the add button that toggles form
+  const [showAddBtn, setShowAddBtn] = useState(true);
   // Shows our cost * amount <div>
   const [showWorth, setShowWorth] = useState(false);
 
   const toggleForm = () => {
     setShowForm(!showForm);
+  };
+
+  const hideAddBtn = () => {
+    setShowAddBtn(false);
   };
 
   const getAmountWorth = (e) => {
@@ -32,6 +38,14 @@ const Coin = ({ coin, onDelete }) => {
         {showWorth && (
           // This div shows us what our amount of coins is worth in $.
           <div>
+            {/* This the current value of our coins */}
+            <p>
+              {new Intl.NumberFormat("us-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(coin.price * amountBought)}
+            </p>
+            {/* This is the cost of our coins */}
             <p>
               {new Intl.NumberFormat("us-US", {
                 style: "currency",
@@ -41,16 +55,21 @@ const Coin = ({ coin, onDelete }) => {
             <p>{new Intl.NumberFormat().format(amountBought)}</p>
           </div>
         )}
-        <BsFillPlusCircleFill className="add-btn" onClick={toggleForm} />
+        {showAddBtn && (
+          <BsFillPlusCircleFill className="add-btn" onClick={toggleForm} />
+        )}
         <BsFillTrashFill
           className="trash-btn"
           onClick={() => {
             onDelete(coin.id);
+            decreaseTotal(coin.price, amountBought);
           }}
         />
       </div>
       {showForm && (
         <AddForm
+          hideAddBtn={hideAddBtn}
+          increaseTotal={increaseTotal}
           getAmountWorth={getAmountWorth}
           price={coin.price}
           setShowWorth={setShowWorth}

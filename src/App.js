@@ -22,14 +22,14 @@ function App() {
   };
 
   // Increase value
-  // const increaseTotal = (price, amount) => {
-  //   setTotal(total + price * amount);
-  // };
+  const increaseTotal = (price, amount) => {
+    setTotal(total + price * amount);
+  };
 
   // Decrease value
-  // const decreaseTotal = (price, amount) => {
-  //   setTotal(total - price * amount);
-  // };
+  const decreaseTotal = (price, amount) => {
+    setTotal(total - price * amount);
+  };
 
   return (
     <div className="container">
@@ -38,6 +38,8 @@ function App() {
       <CoinList
         coins={coins}
         onDelete={deleteCoin}
+        increaseTotal={increaseTotal}
+        decreaseTotal={decreaseTotal}
       />
       <ToggleBtn
         showSearchBar={showSearchBar}
