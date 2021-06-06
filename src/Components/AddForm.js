@@ -47,13 +47,13 @@ const AddForm = ({
     <form onSubmit={displayWorth} className="form-container container">
       <label>Price per coin:</label>
       <input
-      className="input-style"
+        className="input-style"
         type="number"
         maxLength="10"
         value={cost}
         onInput={maxLengthCheck}
         onChange={(e) => {
-          setCost(parseInt(e.target.value));
+          setCost(parseFloat(e.target.value));
         }}
       />
       <label>Amount bought:</label>
@@ -64,7 +64,7 @@ const AddForm = ({
         value={amount}
         onInput={maxLengthCheck}
         onChange={(e) => {
-          setAmount(parseInt(e.target.value));
+          setAmount(parseFloat(e.target.value));
         }}
       />
       <input type="submit" value="Add coin(s)" className="submit-btn" />
