@@ -28,7 +28,7 @@ const SearchBar = ({ addMe }) => {
           sort: "rank",
           order: "ascending",
           offset: 0,
-          limit: 10,
+          limit: 100,
           meta: true,
         }),
       }
@@ -39,6 +39,7 @@ const SearchBar = ({ addMe }) => {
   return (
     <div className="search-container">
       <input
+        className="search-bar"
         type="text"
         placeholder="Search..."
         onChange={(e) => {

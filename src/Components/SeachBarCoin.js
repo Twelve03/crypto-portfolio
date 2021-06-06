@@ -8,9 +8,9 @@ const SearchBarCoin = ({ searchCoin, addMe }) => {
   };
 
   return (
-    <div className="coin" onClick={onAdd}>
+    <div className="search-list-coin" onClick={onAdd}>
       <img src={searchCoin.png32} alt="" />
-      <h1>{searchCoin.name}</h1>
+      <p>{searchCoin.name}</p>
       <p>{searchCoin.code}</p>      
     </div>
   );

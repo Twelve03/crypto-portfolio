@@ -25,7 +25,7 @@ const Coin = ({ coin, onDelete, increaseTotal, decreaseTotal }) => {
   };
 
   return (
-    <div>
+    <div className="coin-container">
       <div className="coin">
         <img src={coin.img} alt="" />
         <p>{coin.code}</p>

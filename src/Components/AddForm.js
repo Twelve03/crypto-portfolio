@@ -44,9 +44,10 @@ const AddForm = ({
   };
 
   return (
-    <form onSubmit={displayWorth}>
+    <form onSubmit={displayWorth} className="form-container container">
       <label>Price per coin:</label>
       <input
+      className="input-style"
         type="number"
         maxLength="10"
         value={cost}
@@ -57,6 +58,7 @@ const AddForm = ({
       />
       <label>Amount bought:</label>
       <input
+        className="input-style"
         type="number"
         maxLength="10"
         value={amount}
@@ -65,7 +67,7 @@ const AddForm = ({
           setAmount(parseInt(e.target.value));
         }}
       />
-      <input type="submit" vale="Save" />
+      <input type="submit" value="Add coin(s)" className="submit-btn" />
     </form>
   );
 };
