@@ -6,9 +6,7 @@ const Coin = ({ coin, onDelete, increaseTotal, decreaseTotal }) => {
   const [coinCost, setCoinCost] = useState("");
   const [amountBought, setAmountBought] = useState("");
   const [showForm, setShowForm] = useState(false);
-  // Shows the add button that toggles form
   const [showAddBtn, setShowAddBtn] = useState(true);
-  // Shows our cost * amount <div>
   const [showWorth, setShowWorth] = useState(false);
 
   const toggleForm = () => {
@@ -27,13 +25,17 @@ const Coin = ({ coin, onDelete, increaseTotal, decreaseTotal }) => {
   return (
     <div className="coin-container">
       <div className="coin">
-        <img src={coin.img} alt="" />
-        <p>{coin.code}</p>
+        <img
+          src={coin.image}
+          alt=""
+          style={{ height: "20px", width: "20px" }}
+        />
+        <p>{coin.symbol}</p>
         <p>
           {new Intl.NumberFormat("us-US", {
             style: "currency",
             currency: "USD",
-          }).format(coin.price)}
+          }).format(coin.current_price)}
         </p>
         {showWorth && (
           // This div shows us what our amount of coins is worth in $.
@@ -43,7 +45,7 @@ const Coin = ({ coin, onDelete, increaseTotal, decreaseTotal }) => {
               {new Intl.NumberFormat("us-US", {
                 style: "currency",
                 currency: "USD",
-              }).format(coin.price * amountBought)}
+              }).format(coin.current_price * amountBought)}
             </p>
             {/* This is the cost of our coins */}
             <p>
@@ -62,7 +64,7 @@ const Coin = ({ coin, onDelete, increaseTotal, decreaseTotal }) => {
           className="trash-btn"
           onClick={() => {
             onDelete(coin.id);
-            decreaseTotal(coin.price, amountBought);
+            decreaseTotal(coin.current_price, amountBought);
           }}
         />
       </div>
@@ -71,7 +73,7 @@ const Coin = ({ coin, onDelete, increaseTotal, decreaseTotal }) => {
           hideAddBtn={hideAddBtn}
           increaseTotal={increaseTotal}
           getAmountWorth={getAmountWorth}
-          price={coin.price}
+          price={coin.current_price}
           setShowWorth={setShowWorth}
           toggleForm={toggleForm}
         />

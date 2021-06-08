@@ -1,12 +1,6 @@
 import Coin from "./Coin";
 
-const CoinList = ({
-  coins,
-  onDelete,
-  getTotal,
-  decreaseTotal,
-  increaseTotal,
-}) => {
+const CoinList = ({ coins, onDelete, decreaseTotal, increaseTotal }) => {
   return (
     <div className="coin-list">
       {coins.map((coin) => {
@@ -15,7 +9,6 @@ const CoinList = ({
             coin={coin}
             key={coin.id}
             onDelete={onDelete}
-            getTotal={getTotal}
             decreaseTotal={decreaseTotal}
             increaseTotal={increaseTotal}
           />

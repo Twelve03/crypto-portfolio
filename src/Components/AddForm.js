@@ -1,5 +1,4 @@
 import { useState } from "react";
-import React from "react";
 
 const AddForm = ({
   price,
@@ -33,6 +32,7 @@ const AddForm = ({
 
       increaseTotal(price, amount);
 
+      // Input values back to default
       setCost(price);
       setAmount("");
       /* 
@@ -45,7 +45,7 @@ const AddForm = ({
 
   return (
     <form onSubmit={displayWorth} className="form-container container">
-      <label>Price per coin:</label>
+      <label>Cost per coin:</label>
       <input
         className="input-style"
         type="number"

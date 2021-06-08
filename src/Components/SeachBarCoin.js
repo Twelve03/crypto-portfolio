@@ -1,17 +1,18 @@
 const SearchBarCoin = ({ searchCoin, addMe }) => {
-
-  const onAdd = () => {
-      const img = searchCoin.png32;
-      const code = searchCoin.code;
-      const price = searchCoin.rate;
-    addMe({img, code, price});
-  };
-
   return (
-    <div className="search-list-coin" onClick={onAdd}>
-      <img src={searchCoin.png32} alt="" />
+    <div
+      className="search-list-coin"
+      onClick={() => {
+        addMe(searchCoin);
+      }}
+    >
+      <img
+        src={searchCoin.image}
+        alt=""
+        style={{ height: "20px", width: "20px" }}
+      />
       <p>{searchCoin.name}</p>
-      <p>{searchCoin.code}</p>      
+      <p>{searchCoin.symbol}</p>
     </div>
   );
 };
