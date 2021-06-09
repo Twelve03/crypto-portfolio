@@ -1,18 +1,20 @@
-const SearchBarCoin = ({ searchCoin, addMe }) => {
+const SearchBarCoin = ({ searchCoin, toggleSearch }) => {
   return (
     <div
       className="search-list-coin"
       onClick={() => {
-        addMe(searchCoin);
+        searchCoin.show = true;
+        toggleSearch();
       }}
     >
       <img
         src={searchCoin.image}
         alt=""
-        style={{ height: "20px", width: "20px" }}
+        style={{ height: "30px", width: "30px" }}
       />
       <p>{searchCoin.name}</p>
       <p>{searchCoin.symbol}</p>
+      <p>{searchCoin.current_price}</p>
     </div>
   );
 };

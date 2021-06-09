@@ -1,18 +1,21 @@
 import Coin from "./Coin";
 
-const CoinList = ({ coins, onDelete, decreaseTotal, increaseTotal }) => {
+const CoinList = ({ decreaseTotal, increaseTotal, apiCoins }) => {
   return (
     <div className="coin-list">
-      {coins.map((coin) => {
-        return (
-          <Coin
-            coin={coin}
-            key={coin.id}
-            onDelete={onDelete}
-            decreaseTotal={decreaseTotal}
-            increaseTotal={increaseTotal}
-          />
-        );
+      {apiCoins.map((coin) => {
+        if (coin.show === true) {
+          return (
+            <Coin
+              coin={coin}
+              key={coin.id}
+              decreaseTotal={decreaseTotal}
+              increaseTotal={increaseTotal}
+            />
+          );
+        } else {
+          return "";
+        }
       })}
     </div>
   );
