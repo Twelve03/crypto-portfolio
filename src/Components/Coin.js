@@ -1,20 +1,15 @@
 import { useState } from "react";
-import { BsFillTrashFill, BsFillPlusCircleFill } from "react-icons/bs";
+import { BsFillTrashFill } from "react-icons/bs";
 import AddForm from "./AddForm";
 
 const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete }) => {
   const [coinCost, setCoinCost] = useState("");
   const [amountBought, setAmountBought] = useState("");
   const [showForm, setShowForm] = useState(false);
-  const [showAddBtn, setShowAddBtn] = useState(true);
   const [showWorth, setShowWorth] = useState(false);
 
   const toggleForm = () => {
     setShowForm(!showForm);
-  };
-
-  const hideAddBtn = () => {
-    setShowAddBtn(false);
   };
 
   const getAmountWorth = (e) => {
@@ -57,9 +52,6 @@ const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete }) => {
             <p>{new Intl.NumberFormat().format(amountBought)}</p>
           </div>
         )}
-        {showAddBtn && (
-          <BsFillPlusCircleFill className="add-btn" onClick={toggleForm} />
-        )}
         <BsFillTrashFill
           className="trash-btn"
           onClick={() => {
@@ -70,7 +62,6 @@ const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete }) => {
       </div>
       {showForm && (
         <AddForm
-          hideAddBtn={hideAddBtn}
           increaseTotal={increaseTotal}
           getAmountWorth={getAmountWorth}
           price={coin.current_price}

@@ -78,9 +78,6 @@ function App() {
       }
       saveToLocal(savedCoinList);
     }
-    // else {
-    //   return console.log("No coins saved yet.");
-    // }
   };
 
   // Updates coin price on refresh

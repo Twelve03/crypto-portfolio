@@ -1,43 +1,58 @@
 import { useState } from "react";
 import SearchBarCoin from "./SeachBarCoin";
+import Loader from "./Loader";
 
 const SearchBar = ({ apiCoins, toggleSearch, onAdd }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  return (
-    <div className="search-container">
-      <input
-        className="search-bar"
-        type="text"
-        placeholder="Search coin..."
-        onChange={(e) => {
-          setSearchTerm(e.target.value);
-        }}
-      />
-      <div className="search-list">
-        {apiCoins
-          .filter((value) => {
-            if (searchTerm === "") {
-              return value;
-            } else if (
-              value.name.toLowerCase().includes(searchTerm.toLowerCase())
-            ) {
-              return value;
-            } else {
-              return null;
-            }
-          })
-          .map((coin) => (
-            <SearchBarCoin
-              onAdd={onAdd}
-              searchCoin={coin}
-              key={apiCoins.indexOf(coin)}
-              toggleSearch={toggleSearch}
-            />
-          ))}
+  let content;
+
+  if (apiCoins.data) {
+    content = (
+      <div className="search-container">
+        <input
+          className="search-bar"
+          type="text"
+          placeholder="Search coin..."
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+        />
+        <div className="search-list">
+          {apiCoins.data
+            .filter((value) => {
+              if (searchTerm === "") {
+                return value;
+              } else if (
+                value.name.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
+                return value;
+              } else {
+                return null;
+              }
+            })
+            .map((coin) => (
+              <SearchBarCoin
+                onAdd={onAdd}
+                searchCoin={coin}
+                key={apiCoins.data.indexOf(coin)}
+                toggleSearch={toggleSearch}
+              />
+            ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  if (apiCoins.loading) {
+    content = <Loader />;
+  }
+
+  if (apiCoins.error) {
+    content = <p>There was an error fetching the API. Try again later.</p>;
+  }
+
+  return content;
 };
 
 export default SearchBar;

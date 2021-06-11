@@ -6,7 +6,6 @@ const AddForm = ({
   toggleForm,
   getAmountWorth,
   increaseTotal,
-  hideAddBtn,
 }) => {
   // Set the cost of each coin and the amount bought of said coin.
   const [cost, setCost] = useState(price);
@@ -35,11 +34,6 @@ const AddForm = ({
       // Input values back to default
       setCost(price);
       setAmount("");
-      /* 
-      We hide the add button after submitting the form for now. An edit option
-      will be implemented later to change cost and amount of coins if needed.
-      */
-      hideAddBtn();
     }
   };
 
