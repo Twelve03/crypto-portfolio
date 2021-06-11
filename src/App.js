@@ -51,7 +51,14 @@ function App() {
 
   // Add Coin
   const addCoin = (newCoin) => {
-    setCoins([...coins, newCoin]);
+    // Check if there's no duplicates before adding
+    if (coins.length > 0) {
+      coins.find((coin) => coin.id === newCoin.id)
+        ? alert("Coin already added!")
+        : setCoins([...coins, newCoin]);
+    } else {
+      setCoins([...coins, newCoin]);
+    }
   };
 
   // Delete coin
@@ -70,9 +77,10 @@ function App() {
         }
       }
       saveToLocal(savedCoinList);
-    } else {
-      return console.log("No coins saved yet.");
     }
+    // else {
+    //   return console.log("No coins saved yet.");
+    // }
   };
 
   // Updates coin price on refresh
