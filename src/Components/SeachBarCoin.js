@@ -1,9 +1,9 @@
-const SearchBarCoin = ({ searchCoin, toggleSearch }) => {
+const SearchBarCoin = ({ searchCoin, toggleSearch, onAdd }) => {
   return (
     <div
       className="search-list-coin"
       onClick={() => {
-        searchCoin.show = true;
+        onAdd(searchCoin);
         toggleSearch();
       }}
     >

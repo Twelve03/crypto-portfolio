@@ -1,4 +1,4 @@
-const Header = ({ total }) => {
+const Header = ({ total, apiCoins }) => {
   return (
     <div className="header">
       <p>My portfolio</p>

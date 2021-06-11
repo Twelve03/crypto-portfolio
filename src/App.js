@@ -1,25 +1,38 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import Header from "./Components/Header";
 import CoinList from "./Components/CoinList";
 import ToggleBtn from "./Components/ToggleBtn";
 import SearchBar from "./Components/SearchBar";
+import useAxios from "./Hooks/HttpRequest";
+
 function App() {
-  const [apiCoins, setApiCoins] = useState([]);
+  const [coins, setCoins] = useState([]);
   const [total, setTotal] = useState(0);
   const [showSearchBar, setShowSearchBar] = useState(false);
 
+  let apiCoins = useAxios();
+
+  // Local storage functions
   useEffect(() => {
-    // Get coin's data from coingecko.com API
-    axios
-      .get(
-        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false"
-      )
-      .then((res) => {
-        setApiCoins(res.data);
-      })
-      .catch((error) => alert("Something went wrong fetching the API"));
+    getLocalCoins();
   }, []);
+
+  useEffect(() => {
+    saveToLocal(coins);
+  }, [coins]);
+
+  const saveToLocal = (e) => {
+    localStorage.setItem("coins", JSON.stringify(e));
+  };
+
+  const getLocalCoins = () => {
+    if (localStorage.getItem("coins") === null) {
+      localStorage.setItem("coins", JSON.stringify([]));
+    } else {
+      let localCoins = JSON.parse(localStorage.getItem("coins"));
+      setCoins(localCoins);
+    }
+  };
 
   // Increase portfolio value
   const increaseTotal = (price, amount) => {
@@ -36,17 +49,52 @@ function App() {
     setShowSearchBar(!showSearchBar);
   };
 
+  // Add Coin
+  const addCoin = (newCoin) => {
+    setCoins([...coins, newCoin]);
+  };
+
+  // Delete coin
+  const deleteCoin = (id) => {
+    setCoins(coins.filter((coin) => coin.id !== id));
+  };
+
+  const updatePrice = () => {
+    if (JSON.parse(localStorage.getItem("coins")) !== null) {
+      let savedCoinList = JSON.parse(localStorage.getItem("coins"));
+      for (let i = 0; i < savedCoinList.length; i++) {
+        for (let j = 0; j < apiCoins.length; j++) {
+          if (apiCoins[j].id === savedCoinList[i].id) {
+            savedCoinList[i].current_price = apiCoins[j].current_price;
+          }
+        }
+      }
+      saveToLocal(savedCoinList);
+    } else {
+      return console.log("No coins saved yet.");
+    }
+  };
+
+  // Updates coin price on refresh
+  updatePrice();
+
   return (
     <div className="container">
       <Header total={total} />
       {showSearchBar && (
-        <SearchBar apiCoins={apiCoins} toggleSearch={toggleSearch} />
+        <SearchBar
+          apiCoins={apiCoins}
+          toggleSearch={toggleSearch}
+          onAdd={addCoin}
+        />
       )}
       {!showSearchBar && (
         <CoinList
+          coins={coins}
+          apiCoins={apiCoins}
           increaseTotal={increaseTotal}
           decreaseTotal={decreaseTotal}
-          apiCoins={apiCoins}
+          onDelete={deleteCoin}
         />
       )}
       <ToggleBtn showSearchBar={showSearchBar} toggleSearch={toggleSearch} />

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SearchBarCoin from "./SeachBarCoin";
 
-const SearchBar = ({ apiCoins, toggleSearch }) => {
+const SearchBar = ({ apiCoins, toggleSearch, onAdd }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
@@ -29,6 +29,7 @@ const SearchBar = ({ apiCoins, toggleSearch }) => {
           })
           .map((coin) => (
             <SearchBarCoin
+              onAdd={onAdd}
               searchCoin={coin}
               key={apiCoins.indexOf(coin)}
               toggleSearch={toggleSearch}
