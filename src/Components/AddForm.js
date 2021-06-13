@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { BsXCircleFill } from "react-icons/bs";
 
 const AddForm = ({
   price,
+  coinName,
   setShowWorth,
   toggleForm,
   getAmountWorth,
@@ -38,31 +40,35 @@ const AddForm = ({
   };
 
   return (
-    <form onSubmit={displayWorth} className="form-container container">
-      <label>Cost per coin:</label>
-      <input
-        className="input-style"
-        type="number"
-        maxLength="10"
-        value={cost}
-        onInput={maxLengthCheck}
-        onChange={(e) => {
-          setCost(parseFloat(e.target.value));
-        }}
-      />
-      <label>Amount bought:</label>
-      <input
-        className="input-style"
-        type="number"
-        maxLength="10"
-        value={amount}
-        onInput={maxLengthCheck}
-        onChange={(e) => {
-          setAmount(parseFloat(e.target.value));
-        }}
-      />
-      <input type="submit" value="Add coin(s)" className="submit-btn" />
-    </form>
+    <div className="form-mask">
+      <form onSubmit={displayWorth} className="form-container container">
+        <BsXCircleFill className="exit-form-btn" onClick={toggleForm} />
+        <p style={{ fontWeight: "bold" }}>{coinName}</p>
+        <label>Cost per coin:</label>
+        <input
+          className="input-style"
+          type="number"
+          maxLength="10"
+          value={cost}
+          onInput={maxLengthCheck}
+          onChange={(e) => {
+            setCost(parseFloat(e.target.value));
+          }}
+        />
+        <label>Amount bought:</label>
+        <input
+          className="input-style"
+          type="number"
+          maxLength="10"
+          value={amount}
+          onInput={maxLengthCheck}
+          onChange={(e) => {
+            setAmount(parseFloat(e.target.value));
+          }}
+        />
+        <input type="submit" value="Add coin(s)" className="submit-btn" />
+      </form>
+    </div>
   );
 };
 

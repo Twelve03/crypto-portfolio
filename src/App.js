@@ -67,16 +67,18 @@ function App() {
   };
 
   const updatePrice = () => {
-    if (JSON.parse(localStorage.getItem("coins")) !== null) {
-      let savedCoinList = JSON.parse(localStorage.getItem("coins"));
-      for (let i = 0; i < savedCoinList.length; i++) {
-        for (let j = 0; j < apiCoins.length; j++) {
-          if (apiCoins[j].id === savedCoinList[i].id) {
-            savedCoinList[i].current_price = apiCoins[j].current_price;
+    if (apiCoins.data) {
+      if (JSON.parse(localStorage.getItem("coins")) !== null) {
+        let savedCoinList = JSON.parse(localStorage.getItem("coins"));
+        for (let i = 0; i < savedCoinList.length; i++) {
+          for (let j = 0; j < apiCoins.data.length; j++) {
+            if (apiCoins.data[j].id === savedCoinList[i].id) {
+              savedCoinList[i].current_price = apiCoins.data[j].current_price;
+            }
           }
         }
+        saveToLocal(savedCoinList);
       }
-      saveToLocal(savedCoinList);
     }
   };
 

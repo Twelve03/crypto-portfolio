@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
+import AddTxBtn from "./AddTxBtn";
 import AddForm from "./AddForm";
 
 const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete }) => {
@@ -7,6 +8,10 @@ const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete }) => {
   const [amountBought, setAmountBought] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [showWorth, setShowWorth] = useState(false);
+
+  const totalCost = coinCost * amountBought;
+  let totalValue = coin.current_price * amountBought;
+  let profitOrLoss = totalValue - totalCost;
 
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -25,7 +30,7 @@ const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete }) => {
           alt=""
           style={{ height: "30px", width: "30px" }}
         />
-        <p>{coin.symbol}</p>
+        <p>{coin.symbol.toUpperCase()}</p>
         <p>
           {new Intl.NumberFormat("us-US", {
             style: "currency",
@@ -40,18 +45,34 @@ const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete }) => {
               {new Intl.NumberFormat("us-US", {
                 style: "currency",
                 currency: "USD",
-              }).format(coin.current_price * amountBought)}
+              }).format(totalValue)}
             </p>
             {/* This is the cost of our coins */}
             <p>
               {new Intl.NumberFormat("us-US", {
                 style: "currency",
                 currency: "USD",
-              }).format(coinCost * amountBought)}
+              }).format(totalCost)}
             </p>
             <p>{new Intl.NumberFormat().format(amountBought)}</p>
           </div>
         )}
+        {showWorth && (
+          // Shows our profit or loss.
+          <div>
+            <p className={profitOrLoss >= 0 ? "profit" : "loss"}>
+              {new Intl.NumberFormat("us-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(profitOrLoss)}
+            </p>
+            <p className={profitOrLoss >= 0 ? "profit" : "loss"}>
+              {new Intl.NumberFormat().format((100 * profitOrLoss) / totalCost)}
+              %
+            </p>
+          </div>
+        )}
+        <AddTxBtn setShowForm={setShowForm} showForm={showForm} />
         <BsFillTrashFill
           className="trash-btn"
           onClick={() => {
@@ -62,9 +83,10 @@ const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete }) => {
       </div>
       {showForm && (
         <AddForm
+          price={coin.current_price}
           increaseTotal={increaseTotal}
           getAmountWorth={getAmountWorth}
-          price={coin.current_price}
+          coinName={coin.name}
           setShowWorth={setShowWorth}
           toggleForm={toggleForm}
         />
