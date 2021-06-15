@@ -66,6 +66,7 @@ function App() {
     setCoins(coins.filter((coin) => coin.id !== id));
   };
 
+  // Updates coin price
   const updatePrice = () => {
     if (apiCoins.data) {
       if (JSON.parse(localStorage.getItem("coins")) !== null) {
@@ -82,7 +83,6 @@ function App() {
     }
   };
 
-  // Updates coin price on refresh
   updatePrice();
 
   return (

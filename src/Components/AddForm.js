@@ -1,16 +1,9 @@
 import { useState } from "react";
 import { BsXCircleFill } from "react-icons/bs";
 
-const AddForm = ({
-  price,
-  coinName,
-  setShowWorth,
-  toggleForm,
-  getAmountWorth,
-  increaseTotal,
-}) => {
+const AddForm = ({ toggleForm, increaseTotal, setShowAddTx, coin }) => {
   // Set the cost of each coin and the amount bought of said coin.
-  const [cost, setCost] = useState(price);
+  const [cost, setCost] = useState(coin.current_price);
   const [amount, setAmount] = useState("");
 
   // Check max length on inputs
@@ -26,24 +19,30 @@ const AddForm = ({
     if (!cost | !amount) {
       alert("You forgot to input something!");
     } else {
-      setShowWorth(true);
+
       toggleForm();
 
-      getAmountWorth({ cost, amount });
-
-      increaseTotal(price, amount);
+      increaseTotal(coin.current_price, amount);
 
       // Input values back to default
-      setCost(price);
+      setCost(coin.current_price);
       setAmount("");
+
+      /*
+      Hide "Add coins" button after adding coins.
+      User will be allowed to edit values later by clicking the 
+      coin div.
+      */
+      setShowAddTx(false);
     }
   };
 
   return (
-    <div className="form-mask">
+    <>
+      <div className="form-mask" onClick={toggleForm}></div>
       <form onSubmit={displayWorth} className="form-container container">
         <BsXCircleFill className="exit-form-btn" onClick={toggleForm} />
-        <p style={{ fontWeight: "bold" }}>{coinName}</p>
+        <p style={{ fontWeight: "bold" }}>{coin.name}</p>
         <label>Cost per coin:</label>
         <input
           className="input-style"
@@ -68,7 +67,7 @@ const AddForm = ({
         />
         <input type="submit" value="Add coin(s)" className="submit-btn" />
       </form>
-    </div>
+    </>
   );
 };
 
