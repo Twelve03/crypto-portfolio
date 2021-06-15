@@ -21,6 +21,19 @@ function App() {
     saveToLocal(coins);
   }, [coins]);
 
+  // useEffect(() => {
+  //   localStorage.setItem("total", total);
+  // }, [total]);
+
+  // const getLocalTotal = () => {
+  //   if (localStorage.getItem("total") === null) {
+  //     localStorage.setItem("total", "");
+  //   } else {
+  //     let localTotal = localStorage.getItem("total");
+  //     setTotal(localTotal);
+  //   }
+  // };
+
   const saveToLocal = (e) => {
     localStorage.setItem("coins", JSON.stringify(e));
   };
@@ -66,6 +79,18 @@ function App() {
     setCoins(coins.filter((coin) => coin.id !== id));
   };
 
+  // Updates amount and cost of coin.
+  const updateCoin = (e) => {
+    let coin = e.coin;
+    let cost = e.cost;
+    let amount = e.amount;
+    let updatedCoin = { ...coin, cost, amount };
+    // Delete the existing coin so we don't get duplicates.
+    let filteredCoins = coins.filter((el) => el.id !== e.coin.id);
+
+    setCoins([...filteredCoins, updatedCoin]);
+  };
+
   // Updates coin price
   const updatePrice = () => {
     if (apiCoins.data) {
@@ -97,6 +122,7 @@ function App() {
       )}
       {!showSearchBar && (
         <CoinList
+          updateCoin={updateCoin}
           coins={coins}
           apiCoins={apiCoins}
           increaseTotal={increaseTotal}

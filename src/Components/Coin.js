@@ -3,9 +3,15 @@ import { BsFillTrashFill } from "react-icons/bs";
 import AddTxBtn from "./AddTxBtn";
 import AddForm from "./AddForm";
 
-const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete }) => {
+const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete, updateCoin }) => {
   const [showAddTx, setShowAddTx] = useState(true);
   const [showForm, setShowForm] = useState(false);
+
+  // Accounting
+  let totalValue = coin.current_price * coin.amount;
+  let totalCost = coin.cost * coin.amount;
+  let profitOrLoss = totalValue - totalCost;
+  let ROI = (100 * profitOrLoss) / totalCost;
 
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -26,6 +32,24 @@ const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete }) => {
             currency: "USD",
           }).format(coin.current_price)}
         </p>
+        <div>
+          <p>
+            {new Intl.NumberFormat("us-US", {
+              style: "currency",
+              currency: "USD",
+            }).format(totalValue)}
+          </p>
+          <p>{coin.amount}</p>
+        </div>
+        <div>
+          <p>
+            {new Intl.NumberFormat("us-US", {
+              style: "currency",
+              currency: "USD",
+            }).format(profitOrLoss)}
+          </p>
+          <p>{new Intl.NumberFormat().format(ROI)}%</p>
+        </div>
         {showAddTx && (
           <AddTxBtn setShowForm={setShowForm} showForm={showForm} />
         )}
@@ -39,6 +63,7 @@ const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete }) => {
       </div>
       {showForm && (
         <AddForm
+          updateCoin={updateCoin}
           coin={coin}
           increaseTotal={increaseTotal}
           toggleForm={toggleForm}
