@@ -4,7 +4,6 @@ import AddTxBtn from "./AddTxBtn";
 import AddForm from "./AddForm";
 
 const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete, updateCoin }) => {
-  const [showAddTx, setShowAddTx] = useState(true);
   const [showForm, setShowForm] = useState(false);
 
   // Accounting
@@ -32,32 +31,46 @@ const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete, updateCoin }) => {
             currency: "USD",
           }).format(coin.current_price)}
         </p>
-        <div>
-          <p>
-            {new Intl.NumberFormat("us-US", {
-              style: "currency",
-              currency: "USD",
-            }).format(totalValue)}
-          </p>
-          <p>{coin.amount}</p>
-        </div>
-        <div>
-          <p>
-            {new Intl.NumberFormat("us-US", {
-              style: "currency",
-              currency: "USD",
-            }).format(profitOrLoss)}
-          </p>
-          <p>{new Intl.NumberFormat().format(ROI)}%</p>
-        </div>
-        {showAddTx && (
-          <AddTxBtn setShowForm={setShowForm} showForm={showForm} />
+
+        {(coin.cost !== undefined) | (coin.amount !== undefined) ? (
+          <div>
+            <p>
+              {new Intl.NumberFormat("us-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(totalValue)}
+            </p>
+            <p>{coin.amount}</p>
+          </div>
+        ) : (
+          ""
         )}
+
+        {(coin.cost !== undefined) | (coin.amount !== undefined) ? (
+          <div className={totalCost > totalValue ? "loss" : "profit"}>
+            <p>
+              {new Intl.NumberFormat("us-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(profitOrLoss)}
+            </p>
+            <p>{new Intl.NumberFormat().format(ROI)}%</p>
+          </div>
+        ) : (
+          ""
+        )}
+
+        {(coin.cost === undefined) & (coin.amount === undefined) ? (
+          <AddTxBtn setShowForm={setShowForm} showForm={showForm} />
+        ) : (
+          ""
+        )}
+
         <BsFillTrashFill
           className="trash-btn"
           onClick={() => {
             onDelete(coin.id);
-            decreaseTotal(coin.current_price);
+            decreaseTotal(coin.current_price, coin.amount);
           }}
         />
       </div>
@@ -67,7 +80,6 @@ const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete, updateCoin }) => {
           coin={coin}
           increaseTotal={increaseTotal}
           toggleForm={toggleForm}
-          setShowAddTx={setShowAddTx}
         />
       )}
     </div>

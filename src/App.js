@@ -15,24 +15,25 @@ function App() {
   // Local storage functions
   useEffect(() => {
     getLocalCoins();
+    getLocalTotal();
   }, []);
 
   useEffect(() => {
     saveToLocal(coins);
   }, [coins]);
 
-  // useEffect(() => {
-  //   localStorage.setItem("total", total);
-  // }, [total]);
+  useEffect(() => {
+    localStorage.setItem("total", total);
+  }, [total]);
 
-  // const getLocalTotal = () => {
-  //   if (localStorage.getItem("total") === null) {
-  //     localStorage.setItem("total", "");
-  //   } else {
-  //     let localTotal = localStorage.getItem("total");
-  //     setTotal(localTotal);
-  //   }
-  // };
+  const getLocalTotal = () => {
+    if (localStorage.getItem("total") === null) {
+      localStorage.setItem("total", "");
+    } else {
+      let localTotal = localStorage.getItem("total");
+      setTotal(localTotal);
+    }
+  };
 
   const saveToLocal = (e) => {
     localStorage.setItem("coins", JSON.stringify(e));

@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { BsXCircleFill } from "react-icons/bs";
 
-const AddForm = ({
-  toggleForm,
-  increaseTotal,
-  setShowAddTx,
-  coin,
-  updateCoin,
-}) => {
+const AddForm = ({ toggleForm, increaseTotal, coin, updateCoin }) => {
   // Set the cost of each coin and the amount bought of said coin.
   const [cost, setCost] = useState(coin.current_price);
   const [amount, setAmount] = useState("");
@@ -35,13 +29,6 @@ const AddForm = ({
       // Input values back to default
       setCost(coin.current_price);
       setAmount("");
-
-      /*
-      Hide "Add coins" button after adding coins.
-      User will be allowed to edit values later by clicking the 
-      coin div.
-      */
-      setShowAddTx(false);
     }
   };
 
