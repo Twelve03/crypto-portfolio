@@ -3,7 +3,7 @@ import { BsFillTrashFill } from "react-icons/bs";
 import AddTxBtn from "./AddTxBtn";
 import AddForm from "./AddForm";
 
-const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete, updateCoin }) => {
+const Coin = ({ coin, onDelete, updateCoin }) => {
   const [showForm, setShowForm] = useState(false);
 
   // Accounting
@@ -70,17 +70,11 @@ const Coin = ({ coin, increaseTotal, decreaseTotal, onDelete, updateCoin }) => {
           className="trash-btn"
           onClick={() => {
             onDelete(coin.id);
-            decreaseTotal(coin.current_price, coin.amount);
           }}
         />
       </div>
       {showForm && (
-        <AddForm
-          updateCoin={updateCoin}
-          coin={coin}
-          increaseTotal={increaseTotal}
-          toggleForm={toggleForm}
-        />
+        <AddForm updateCoin={updateCoin} coin={coin} toggleForm={toggleForm} />
       )}
     </div>
   );

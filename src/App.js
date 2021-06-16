@@ -7,7 +7,6 @@ import useAxios from "./Hooks/HttpRequest";
 
 function App() {
   const [coins, setCoins] = useState([]);
-  const [total, setTotal] = useState(0);
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   let apiCoins = useAxios();
@@ -15,25 +14,11 @@ function App() {
   // Local storage functions
   useEffect(() => {
     getLocalCoins();
-    getLocalTotal();
   }, []);
 
   useEffect(() => {
     saveToLocal(coins);
   }, [coins]);
-
-  useEffect(() => {
-    localStorage.setItem("total", total);
-  }, [total]);
-
-  const getLocalTotal = () => {
-    if (localStorage.getItem("total") === null) {
-      localStorage.setItem("total", "");
-    } else {
-      let localTotal = localStorage.getItem("total");
-      setTotal(localTotal);
-    }
-  };
 
   const saveToLocal = (e) => {
     localStorage.setItem("coins", JSON.stringify(e));
@@ -48,16 +33,6 @@ function App() {
     }
   };
 
-  // Increase portfolio value
-  const increaseTotal = (price, amount) => {
-    setTotal(total + price * amount);
-  };
-
-  // Decrease portfolio value
-  const decreaseTotal = (price, amount) => {
-    setTotal(total - price * amount);
-  };
-
   // Toggle search coin section
   const toggleSearch = () => {
     setShowSearchBar(!showSearchBar);
@@ -65,7 +40,7 @@ function App() {
 
   // Add Coin
   const addCoin = (newCoin) => {
-    // Check if there's no duplicates before adding
+    // Check for duplicates before adding.
     if (coins.length > 0) {
       coins.find((coin) => coin.id === newCoin.id)
         ? alert("Coin already added!")
@@ -80,7 +55,7 @@ function App() {
     setCoins(coins.filter((coin) => coin.id !== id));
   };
 
-  // Updates amount and cost of coin.
+  // Updates amount and cost of coin
   const updateCoin = (e) => {
     let coin = e.coin;
     let cost = e.cost;
@@ -113,7 +88,7 @@ function App() {
 
   return (
     <div className="container">
-      <Header total={total} />
+      <Header coins={coins} />
       {showSearchBar && (
         <SearchBar
           apiCoins={apiCoins}
@@ -126,8 +101,6 @@ function App() {
           updateCoin={updateCoin}
           coins={coins}
           apiCoins={apiCoins}
-          increaseTotal={increaseTotal}
-          decreaseTotal={decreaseTotal}
           onDelete={deleteCoin}
         />
       )}
