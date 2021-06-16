@@ -6,8 +6,7 @@
 
 body {
   min-height: 100vh;
-  background-color: #f0f0f0;
-  background-image: linear-gradient(315deg, #e7e7e7 0%, #f5f7fa 74%);
+  font-family: "Poppins", sans-serif;
 }
 
 .header {
@@ -47,14 +46,13 @@ body {
 .form-container {
   display: flex;
   justify-content: center;
-  background-color: rgba(231, 231, 231, 0.986);
-  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   height: 150px;
   width: 50%;
   margin-bottom: 15px;
   position: absolute;
   position: fixed;
   z-index: 10;
+  background: #e0e0e0;
 }
 
 .input-style {
@@ -157,14 +155,21 @@ body {
 }
 
 .search-bar {
+  margin-top: 10px;
   width: 70%;
   height: 30px;
   border-radius: 10px;
   border: none;
-  padding-left: 7px;
+  padding-left: 12px;
+  background: #f5f5fa;
+  box-shadow: inset -2px -2px 4px rgba(255, 255, 255, 0.5),
+    inset 2px 2px 4px rgba(146, 146, 150, 0.25),
+    inset 5px 5px 10px rgba(174, 174, 187, 0.5), inset -5px -5px 10px #ffffff;
 }
 
 .search-container {
+  background-color: #f0f0f3;
+  border-radius: 15px;
   height: 80vh;
   width: 70%;
   display: flex;
@@ -180,11 +185,32 @@ body {
   flex-direction: column;
   align-items: center;
   overflow-y: scroll;
+  background: #f0f0f3;
+}
+
+/* Scroll bar styling */
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(184, 184, 184);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(138, 138, 138);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #626262;
 }
 
 .loader {
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -203,17 +229,26 @@ body {
 .search-list-coin {
   display: flex;
   justify-content: space-around;
-  width: 100%;
+  width: 95%;
   cursor: pointer;
   margin-bottom: 10px;
   align-items: center;
   text-align: center;
-  background-color: #dfdfdf;
   border-radius: 10px;
+  border-radius: 98px;
+  color: #34373b;
+  background: #f0f0f3;
+  box-shadow: 5px 5px 10px rgba(94, 94, 95, 0.25), -5px -5px 10px #f0f0f3,
+    5px 5px 10px rgba(94, 94, 95, 0.25), 10px 10px 20px #f0f0f3,
+    -10px -10px 20px #f0f0f3;
 }
 
 .search-list-coin:first-child {
   margin-top: 10px;
+}
+
+.search-list-coin:hover {
+  background-color: rgb(230, 230, 230);
 }
 
 .add-tx-btn {
@@ -231,4 +266,23 @@ body {
 
 .loss {
   color: red;
+}
+
+@media only screen and (max-width: 750px) {
+  .search-container {
+    width: 100%;
+    height: 93vh;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 120px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  .search-bar {
+    margin-bottom: -20%;
+  }
+
+  .search-list {
+    height: 70%;
+  }
 }

@@ -13,8 +13,13 @@ const SearchBarCoin = ({ searchCoin, toggleSearch, onAdd }) => {
         style={{ height: "30px", width: "30px" }}
       />
       <p>{searchCoin.name}</p>
-      <p>{searchCoin.symbol}</p>
-      <p>{searchCoin.current_price}</p>
+      <p>{searchCoin.symbol.toUpperCase()}</p>
+      <p>
+        {new Intl.NumberFormat("us-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(searchCoin.current_price)}
+      </p>
     </div>
   );
 };

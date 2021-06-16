@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
+import useAxios from "./Hooks/HttpRequest";
 import Header from "./Components/Header";
 import CoinList from "./Components/CoinList";
 import ToggleBtn from "./Components/ToggleBtn";
 import SearchBar from "./Components/SearchBar";
-import useAxios from "./Hooks/HttpRequest";
 
 function App() {
   const [coins, setCoins] = useState([]);
@@ -88,12 +88,13 @@ function App() {
 
   return (
     <div className="container">
-      <Header coins={coins} />
+      {!showSearchBar && <Header coins={coins} />}
       {showSearchBar && (
         <SearchBar
           apiCoins={apiCoins}
           toggleSearch={toggleSearch}
           onAdd={addCoin}
+          showSearchBar={showSearchBar}
         />
       )}
       {!showSearchBar && (
