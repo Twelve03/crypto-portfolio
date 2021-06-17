@@ -17,66 +17,76 @@ const Coin = ({ coin, onDelete, updateCoin }) => {
   };
 
   return (
-    <div className="coin-container">
-      <div className="coin">
-        <img
-          src={coin.image}
-          alt=""
-          style={{ height: "30px", width: "30px" }}
-        />
-        <p>{coin.symbol.toUpperCase()}</p>
-        <p>
-          {new Intl.NumberFormat("us-US", {
-            style: "currency",
-            currency: "USD",
-          }).format(coin.current_price)}
-        </p>
+    <>
+      <div
+        className="coin-container"
+        onClick={() => {
+          // Opens up AddForm again to edit coin amount and cost if needed.
+          if ((coin.cost !== undefined) | (coin.amount !== undefined)) {
+            toggleForm();
+          }
+        }}
+      >
+        <div className="coin">
+          <img
+            src={coin.image}
+            alt=""
+            style={{ height: "30px", width: "30px" }}
+          />
+          <p>{coin.symbol.toUpperCase()}</p>
+          <p>
+            {new Intl.NumberFormat("us-US", {
+              style: "currency",
+              currency: "USD",
+            }).format(coin.current_price)}
+          </p>
 
-        {(coin.cost !== undefined) | (coin.amount !== undefined) ? (
-          <div>
-            <p>
-              {new Intl.NumberFormat("us-US", {
-                style: "currency",
-                currency: "USD",
-              }).format(totalValue)}
-            </p>
-            <p>{coin.amount}</p>
-          </div>
-        ) : (
-          ""
-        )}
+          {(coin.cost !== undefined) | (coin.amount !== undefined) ? (
+            <div>
+              <p>
+                {new Intl.NumberFormat("us-US", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(totalValue)}
+              </p>
+              <p>{coin.amount}</p>
+            </div>
+          ) : (
+            ""
+          )}
 
-        {(coin.cost !== undefined) | (coin.amount !== undefined) ? (
-          <div className={totalCost > totalValue ? "loss" : "profit"}>
-            <p>
-              {new Intl.NumberFormat("us-US", {
-                style: "currency",
-                currency: "USD",
-              }).format(profitOrLoss)}
-            </p>
-            <p>{new Intl.NumberFormat().format(ROI)}%</p>
-          </div>
-        ) : (
-          ""
-        )}
+          {(coin.cost !== undefined) | (coin.amount !== undefined) ? (
+            <div className={totalCost > totalValue ? "loss" : "profit"}>
+              <p>
+                {new Intl.NumberFormat("us-US", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(profitOrLoss)}
+              </p>
+              <p>{new Intl.NumberFormat().format(ROI)}%</p>
+            </div>
+          ) : (
+            ""
+          )}
 
-        {(coin.cost === undefined) & (coin.amount === undefined) ? (
-          <AddTxBtn setShowForm={setShowForm} showForm={showForm} />
-        ) : (
-          ""
-        )}
+          {(coin.cost === undefined) & (coin.amount === undefined) ? (
+            <AddTxBtn setShowForm={setShowForm} showForm={showForm} />
+          ) : (
+            ""
+          )}
 
-        <BsFillTrashFill
-          className="trash-btn"
-          onClick={() => {
-            onDelete(coin.id);
-          }}
-        />
+          <BsFillTrashFill
+            className="trash-btn"
+            onClick={() => {
+              onDelete(coin.id);
+            }}
+          />
+        </div>
       </div>
       {showForm && (
         <AddForm updateCoin={updateCoin} coin={coin} toggleForm={toggleForm} />
       )}
-    </div>
+    </>
   );
 };
 

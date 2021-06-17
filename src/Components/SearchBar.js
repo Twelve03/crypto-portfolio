@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { useTransition, animated } from "react-spring";
 import SearchBarCoin from "./SeachBarCoin";
 import Loader from "./Loader";
-import { useTransition, animated } from "react-spring";
 
 const SearchBar = ({ apiCoins, toggleSearch, onAdd, showSearchBar }) => {
   const [searchTerm, setSearchTerm] = useState("");
