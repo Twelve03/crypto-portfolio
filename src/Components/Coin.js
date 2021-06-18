@@ -42,21 +42,27 @@ const Coin = ({ coin, onDelete, updateCoin }) => {
           </p>
 
           {(coin.cost !== undefined) | (coin.amount !== undefined) ? (
-            <div>
+            <div className="total-value">
               <p>
                 {new Intl.NumberFormat("us-US", {
                   style: "currency",
                   currency: "USD",
                 }).format(totalValue)}
               </p>
-              <p>{coin.amount}</p>
+              <p>{new Intl.NumberFormat().format(coin.amount)}</p>
             </div>
           ) : (
             ""
           )}
 
           {(coin.cost !== undefined) | (coin.amount !== undefined) ? (
-            <div className={totalCost > totalValue ? "loss" : "profit"}>
+            <div
+              className={
+                totalCost > totalValue
+                  ? "loss"
+                  : "profit" | (profitOrLoss === 0) && "even"
+              }
+            >
               <p>
                 {new Intl.NumberFormat("us-US", {
                   style: "currency",
