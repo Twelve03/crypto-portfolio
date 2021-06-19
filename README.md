@@ -8,9 +8,9 @@ Live Demo: https://cryptoportfoolio.netlify.app/
 
 ## Project Screen Shot(s)
 
-![alt text](https://ibb.co/QPCC1Kp)
+(https://ibb.co/QPCC1Kp)
 
-![alt text](https://ibb.co/gW7fKVv)
+(https://ibb.co/gW7fKVv)
 
 ## Installation and Setup Instructions
 
