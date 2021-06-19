@@ -11,7 +11,6 @@ function App() {
 
   let apiCoins = useAxios();
 
-  // Local storage functions
   useEffect(() => {
     getLocalCoins();
   }, []);
@@ -20,6 +19,7 @@ function App() {
     saveToLocal(coins);
   }, [coins]);
 
+  // Local storage functions
   const saveToLocal = (e) => {
     localStorage.setItem("coins", JSON.stringify(e));
   };
@@ -83,7 +83,6 @@ function App() {
       }
     }
   };
-
   updatePrice();
 
   return (

@@ -303,4 +303,8 @@ body {
   .search-list {
     height: 70%;
   }
+
+  .coin {
+    font-size: 1em;
+  }
 }

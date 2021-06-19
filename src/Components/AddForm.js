@@ -51,13 +51,14 @@ const AddForm = ({ toggleForm, coin, updateCoin }) => {
             <p style={{ fontWeight: "bold" }}>{coin.name}</p>
             <label>Cost per coin:</label>
             <input
+              step="any"
               className="input-style"
               type="number"
               maxLength="10"
               value={cost}
               onInput={maxLengthCheck}
               onChange={(e) => {
-                setCost(parseFloat(e.target.value));
+                setCost(e.target.value);
               }}
             />
             <label>Amount bought:</label>
@@ -66,9 +67,10 @@ const AddForm = ({ toggleForm, coin, updateCoin }) => {
               type="number"
               maxLength="10"
               value={amount}
+              step="any"
               onInput={maxLengthCheck}
               onChange={(e) => {
-                setAmount(parseFloat(e.target.value));
+                setAmount(e.target.value);
               }}
             />
             <input type="submit" value="Add coin(s)" className="submit-btn" />

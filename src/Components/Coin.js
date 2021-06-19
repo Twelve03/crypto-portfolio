@@ -41,6 +41,7 @@ const Coin = ({ coin, onDelete, updateCoin }) => {
             }).format(coin.current_price)}
           </p>
 
+          {/* Current value of coins */}
           {(coin.cost !== undefined) | (coin.amount !== undefined) ? (
             <div className="total-value">
               <p>
@@ -55,12 +56,15 @@ const Coin = ({ coin, onDelete, updateCoin }) => {
             ""
           )}
 
+          {/* Profit or Loss */}
           {(coin.cost !== undefined) | (coin.amount !== undefined) ? (
             <div
               className={
-                totalCost > totalValue
+                profitOrLoss > 0
+                  ? "profit"
+                  : profitOrLoss < 0
                   ? "loss"
-                  : "profit" | (profitOrLoss === 0) && "even"
+                  : profitOrLoss === 0 && "even"
               }
             >
               <p>
@@ -75,6 +79,7 @@ const Coin = ({ coin, onDelete, updateCoin }) => {
             ""
           )}
 
+          {/* Add coins button */}
           {(coin.cost === undefined) & (coin.amount === undefined) ? (
             <AddTxBtn setShowForm={setShowForm} showForm={showForm} />
           ) : (
