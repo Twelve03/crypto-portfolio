@@ -1,13 +1,20 @@
 import { useState, useEffect } from "react";
 import useAxios from "./Hooks/HttpRequest";
+import { useTransition, animated } from "react-spring";
 import Header from "./Components/Header";
 import CoinList from "./Components/CoinList";
 import ToggleBtn from "./Components/ToggleBtn";
-import SearchBar from "./Components/SearchBar";
+import Search from "./Components/Search";
 
 function App() {
   const [coins, setCoins] = useState([]);
-  const [showSearchBar, setShowSearchBar] = useState(false);
+  const [toggleSearch, setToggleSearch] = useState(false);
+
+  const transition = useTransition(toggleSearch, {
+    from: { y: 800, opacity: 0 },
+    enter: { y: 50, opacity: 1 },
+    leave: { y: 800, opacity: 0 },
+  });
 
   let apiCoins = useAxios();
 
@@ -33,9 +40,9 @@ function App() {
     }
   };
 
-  // Toggle search coin section
-  const toggleSearch = () => {
-    setShowSearchBar(!showSearchBar);
+  // Toggle search for coin.
+  const toggle = () => {
+    setToggleSearch(!toggleSearch);
   };
 
   // Add Coin
@@ -87,16 +94,18 @@ function App() {
 
   return (
     <div className="container">
-      {!showSearchBar && <Header coins={coins} />}
-      {showSearchBar && (
-        <SearchBar
-          apiCoins={apiCoins}
-          toggleSearch={toggleSearch}
-          onAdd={addCoin}
-          showSearchBar={showSearchBar}
-        />
+      {!toggleSearch && <Header coins={coins} />}
+
+      {transition(
+        (style, item) =>
+          item && (
+            <animated.div className="ani-div" style={style}>
+              <Search apiCoins={apiCoins} onAdd={addCoin} toggle={toggle} />
+            </animated.div>
+          )
       )}
-      {!showSearchBar && (
+
+      {!toggleSearch && (
         <CoinList
           updateCoin={updateCoin}
           coins={coins}
@@ -104,7 +113,7 @@ function App() {
           onDelete={deleteCoin}
         />
       )}
-      <ToggleBtn showSearchBar={showSearchBar} toggleSearch={toggleSearch} />
+      <ToggleBtn toggle={toggle} toggleSearch={toggleSearch} />
     </div>
   );
 }

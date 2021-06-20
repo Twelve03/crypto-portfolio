@@ -15,7 +15,7 @@ body {
 }
 
 .header {
-  width: 100%;
+  width: 70%;
   text-align: center;
   margin-top: 15px;
   margin-bottom: 15px;
@@ -24,7 +24,7 @@ body {
 .header p {
   font-size: 18px;
   font-weight: bold;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .container {
@@ -114,6 +114,14 @@ body {
 
 .value-div {
   text-align: right;
+}
+
+.ani-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .toggle-btn {

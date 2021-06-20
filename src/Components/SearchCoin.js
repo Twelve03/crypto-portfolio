@@ -1,10 +1,10 @@
-const SearchBarCoin = ({ searchCoin, toggleSearch, onAdd }) => {
+const SearchCoin = ({ searchCoin, toggle, onAdd }) => {
   return (
     <div
       className="search-list-coin"
       onClick={() => {
         onAdd(searchCoin);
-        toggleSearch();
+        toggle();
       }}
     >
       <img
@@ -24,4 +24,4 @@ const SearchBarCoin = ({ searchCoin, toggleSearch, onAdd }) => {
   );
 };
 
-export default SearchBarCoin;
+export default SearchCoin;
